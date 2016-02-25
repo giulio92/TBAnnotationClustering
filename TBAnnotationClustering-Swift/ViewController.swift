@@ -12,6 +12,7 @@ import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
+	@IBOutlet weak var mapStyleSelector: UISegmentedControl!
     
     let TBAnnotatioViewReuseID = "TBAnnotatioViewReuseID"
 
@@ -29,6 +30,25 @@ class ViewController: UIViewController, MKMapViewDelegate {
         tbCoordinateQuadTree = TBCoordinateQuadTree(builder: hotelTreeBuilder, mapView: mapView)
         tbCoordinateQuadTree!.buildTree("USA-HotelMotel", worldBounds: world)
     }
+	
+	@IBAction func changeMapStyle(sender: UISegmentedControl) {
+		switch sender.selectedSegmentIndex {
+		case 0:
+			mapView.mapType = .Standard
+			break
+			
+		case 1:
+			mapView.mapType = .Hybrid
+			break
+			
+		case 2:
+			mapView.mapType = .Satellite
+			break
+			
+		default:
+			break
+		}
+	}
 
     func updateMapViewAnnotations(annotations: [MKAnnotation]) {
         let before = NSMutableSet(array: self.mapView.annotations)

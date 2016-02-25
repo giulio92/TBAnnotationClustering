@@ -10,8 +10,7 @@ import Foundation
 import MapKit
 
 class TBCoordinateQuadTree : NSObject {
-    
-    weak var mapView: MKMapView!
+	weak var mapView: MKMapView!
     let hotelTreeBuilder:TBHotelCSVTreeBuilder
     private var root:TBQuadTreeNode?
     

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IFP-rM-xPe">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,25 +17,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ogh-dQ-H2P">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="3aD-0h-8Qd"/>
+                                    <barButtonItem style="plain" id="zXd-2W-EoN">
+                                        <segmentedControl key="customView" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="3bu-pD-BWj">
+                                            <rect key="frame" x="145" y="7" width="310" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <segments>
+                                                <segment title="Standard"/>
+                                                <segment title="Hybrid"/>
+                                                <segment title="Satellite"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="changeMapStyle:" destination="BYZ-38-t0r" eventType="valueChanged" id="Wv2-YA-rgf"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="1NJ-EX-566"/>
+                                </items>
+                            </toolbar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="JZM-um-aSN">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="JZM-um-aSN" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="9cz-3J-djM"/>
-                            <constraint firstItem="JZM-um-aSN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="Vxc-ry-sk1"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JZM-um-aSN" secondAttribute="bottom" id="bNJ-nz-bme"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JZM-um-aSN" secondAttribute="trailing" constant="-20" id="wHn-4h-URw"/>
+                            <constraint firstItem="Ogh-dQ-H2P" firstAttribute="leading" secondItem="JZM-um-aSN" secondAttribute="leading" id="65b-XT-wZE"/>
+                            <constraint firstItem="JZM-um-aSN" firstAttribute="trailing" secondItem="Ogh-dQ-H2P" secondAttribute="trailing" id="7qo-zQ-41E"/>
+                            <constraint firstItem="JZM-um-aSN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="A4S-O1-qYx"/>
+                            <constraint firstItem="Ogh-dQ-H2P" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Kh0-mV-p2Z"/>
+                            <constraint firstItem="Ogh-dQ-H2P" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="hN4-lP-Iku"/>
+                            <constraint firstAttribute="trailing" secondItem="Ogh-dQ-H2P" secondAttribute="trailing" id="ji3-SW-YUk"/>
+                            <constraint firstItem="Ogh-dQ-H2P" firstAttribute="top" secondItem="JZM-um-aSN" secondAttribute="bottom" id="tGS-0u-jHh"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="LkY-zC-ka0"/>
                     <connections>
+                        <outlet property="mapStyleSelector" destination="3bu-pD-BWj" id="1KT-hc-eIs"/>
                         <outlet property="mapView" destination="JZM-um-aSN" id="MvS-bu-Bk0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="245" y="308"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="j9C-Rq-arn">
+            <objects>
+                <navigationController id="IFP-rM-xPe" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FpK-0Y-RhM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="HBY-4e-gHY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jus-5h-pK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-450" y="308"/>
         </scene>
     </scenes>
 </document>
