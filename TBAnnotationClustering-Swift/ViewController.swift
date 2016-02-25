@@ -52,7 +52,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     func addBounceAnimationToView(view:UIView?) {
         let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         
-        bounceAnimation.values = [0.05, 1.1, 0.9, 1]
+        bounceAnimation.values = [0.05, 1.1, 1]
         bounceAnimation.duration = 0.6
         
         var timingFunctions = [CAMediaTimingFunction]()

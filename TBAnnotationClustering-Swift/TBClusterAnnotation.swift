@@ -9,8 +9,7 @@
 import MapKit
 
 class TBClusterAnnotation: NSObject, MKAnnotation {
-    
-    let coordinate: CLLocationCoordinate2D
+	let coordinate: CLLocationCoordinate2D
     let count:Int
 
     var title:String?
@@ -18,7 +17,7 @@ class TBClusterAnnotation: NSObject, MKAnnotation {
     
     init(coordinate:CLLocationCoordinate2D, count:Int) {
         self.coordinate = coordinate
-        self.title = "\(count) hotels in this area"
+        self.title = "\(count) POIs in this area"
         self.count = count
         
         super.init()
@@ -26,8 +25,7 @@ class TBClusterAnnotation: NSObject, MKAnnotation {
     
     override func isEqual(object: AnyObject?) -> Bool {
         if let other = object as? TBClusterAnnotation {
-            return coordinate.longitude == other.coordinate.longitude &&
-                    coordinate.latitude == other.coordinate.latitude
+            return coordinate.longitude == other.coordinate.longitude && coordinate.latitude == other.coordinate.latitude
         }
         
         return false

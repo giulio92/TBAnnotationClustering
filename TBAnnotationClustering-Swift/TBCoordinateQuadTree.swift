@@ -44,7 +44,6 @@ class TBCoordinateQuadTree : NSObject {
                 var totalY = 0.0
                 
                 var names = [String]()
-                var phoneNumbers = [String]()
                 
                 root?.gatherDataInRange(getBoundingBox(mapRect), action: { (data) -> Void in
                     totalX += data.x
@@ -52,7 +51,6 @@ class TBCoordinateQuadTree : NSObject {
                     
                     if let hotelInfo = data.data as? TBHotelInfo {
                         names.append(hotelInfo.hotelName)
-                        phoneNumbers.append(hotelInfo.hotelPhoneNumber)
                     }
                 })
                 
@@ -68,7 +66,6 @@ class TBCoordinateQuadTree : NSObject {
                     let coordinate = CLLocationCoordinate2D(latitude: totalX, longitude: totalY)
                     let annotation = TBClusterAnnotation(coordinate: coordinate, count: count)
                     annotation.title = names.last!
-                    annotation.subtitle = phoneNumbers.last!
                     clusteredAnnotations.append(annotation)
                 }
             }

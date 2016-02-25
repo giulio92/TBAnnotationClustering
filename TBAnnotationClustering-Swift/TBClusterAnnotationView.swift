@@ -9,9 +9,7 @@
 import MapKit
 
 class TBClusterAnnotationView: MKAnnotationView {
-    
-    let TBScaleFactorAlpha:Float = 0.3
-    let TBScaleFactorBeta:Float = 0.4
+	let kScaleFactor:Float = 0.6
     
     private var count:Int?
     private var countLabel:UILabel?
@@ -34,12 +32,11 @@ class TBClusterAnnotationView: MKAnnotationView {
     
     func TBScaledValueForValue(value:Float, multiplier:Float) -> Float {
         // Multiplier * (1/e^(-Alpha * X^(Beta)))
-        return multiplier * (1.0 / (1.0 + expf(-1 * TBScaleFactorAlpha * powf(value, TBScaleFactorBeta))))
+        return multiplier * (1.0 / (1.0 + expf(-1 * kScaleFactor * powf(value, kScaleFactor))))
     }
     
     func TBCenterRect(rect:CGRect, center: CGPoint) -> CGRect {
-        let r = CGRect(x: center.x - rect.size.width/2.0, y: center.y - rect.size.height/2.0, width: rect.size.width, height: rect.size.height)
-        return r
+        return CGRect(x: center.x - rect.size.width/2.0, y: center.y - rect.size.height/2.0, width: rect.size.width, height: rect.size.height)
     }
     
     func TBRectCenter(rect: CGRect) -> CGPoint {
@@ -52,7 +49,7 @@ class TBClusterAnnotationView: MKAnnotationView {
         countLabel?.textColor = UIColor.whiteColor()
         countLabel?.textAlignment = NSTextAlignment.Center
         countLabel?.shadowColor = UIColor(white: 0, alpha: 0.75)
-        countLabel?.shadowOffset = CGSize(width: 0, height: -1)
+        countLabel?.shadowOffset = CGSize(width: 0, height: 1)
         countLabel?.adjustsFontSizeToFitWidth = true
         countLabel?.numberOfLines = 1
         countLabel?.font = UIFont.boldSystemFontOfSize(12)
