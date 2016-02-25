@@ -67,7 +67,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         view!.layer.addAnimation(bounceAnimation, forKey: "bounce")
     }
     
-    // MARK: MKMapViewDelegate
+    // MARK: - MKMapViewDelegate
     
     func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
         for view in views {
@@ -85,8 +85,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        var view:TBClusterAnnotationView?
+		var view:TBClusterAnnotationView?
+		
         if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(TBAnnotatioViewReuseID) as? TBClusterAnnotationView {
             view = dequeuedView
         } else {
