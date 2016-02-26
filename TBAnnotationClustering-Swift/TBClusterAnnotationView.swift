@@ -25,7 +25,7 @@ class TBClusterAnnotationView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = .clearColor()
         setupLabel()
         setCount(1)
     }
@@ -45,15 +45,15 @@ class TBClusterAnnotationView: MKAnnotationView {
     
     func setupLabel() {
         countLabel = UILabel(frame: self.frame)
-        countLabel?.backgroundColor = UIColor.clearColor()
-        countLabel?.textColor = UIColor.whiteColor()
-        countLabel?.textAlignment = NSTextAlignment.Center
-        countLabel?.shadowColor = UIColor(white: 0, alpha: 0.75)
+        countLabel?.backgroundColor = .clearColor()
+        countLabel?.textColor = .whiteColor()
+        countLabel?.textAlignment = .Center
+        countLabel?.shadowColor = .darkGrayColor()
         countLabel?.shadowOffset = CGSize(width: 0, height: 1)
         countLabel?.adjustsFontSizeToFitWidth = true
         countLabel?.numberOfLines = 1
-        countLabel?.font = UIFont.boldSystemFontOfSize(12)
-        countLabel?.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+        countLabel?.font = .boldSystemFontOfSize(12)
+        countLabel?.baselineAdjustment = .AlignCenters
         
         addSubview(countLabel!)
     }

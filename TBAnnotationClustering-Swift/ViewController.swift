@@ -12,6 +12,7 @@ import MapKit
 
 class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
+	@IBOutlet weak var bottomToolbar: UIToolbar!
 	@IBOutlet weak var mapStyleSelector: UISegmentedControl!
     
     let TBAnnotatioViewReuseID = "TBAnnotatioViewReuseID"
@@ -35,14 +36,23 @@ class ViewController: UIViewController, MKMapViewDelegate {
 		switch sender.selectedSegmentIndex {
 		case 0:
 			mapView.mapType = .Standard
+			navigationController?.navigationBar.barStyle = .Default
+			mapStyleSelector.tintColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+			bottomToolbar.barStyle = .Default
 			break
 			
 		case 1:
 			mapView.mapType = .Hybrid
+			navigationController?.navigationBar.barStyle = .Black
+			mapStyleSelector.tintColor = .whiteColor()
+			bottomToolbar.barStyle = .Black
 			break
 			
 		case 2:
 			mapView.mapType = .Satellite
+			navigationController?.navigationBar.barStyle = .Black
+			mapStyleSelector.tintColor = .whiteColor()
+			bottomToolbar.barStyle = .Black
 			break
 			
 		default:
