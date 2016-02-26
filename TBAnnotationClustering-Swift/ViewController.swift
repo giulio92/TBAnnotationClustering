@@ -122,4 +122,3 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return view
     }
 }
-

@@ -9,7 +9,7 @@
 import MapKit
 
 class TBClusterAnnotationView: MKAnnotationView {
-	let kScaleFactor:Float = 0.6
+	let kScaleFactor:Float = 0.5
     
     private var count:Int?
     private var countLabel:UILabel?

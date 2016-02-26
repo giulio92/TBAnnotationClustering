@@ -56,10 +56,10 @@
 		257D9DF51C36DA57004B0025 = {
 			isa = PBXGroup;
 			children = (
-				257D9E1A1C36F56E004B0025 /* Supporting Files */,
+				257D9E001C36DA57004B0025 /* TBAnnotationClustering-Swift */,
 				257D9E131C36E048004B0025 /* Data Structures */,
 				257D9E221C36F742004B0025 /* Hotel Data */,
-				257D9E001C36DA57004B0025 /* TBAnnotationClustering-Swift */,
+				257D9E1A1C36F56E004B0025 /* Supporting Files */,
 				257D9DFF1C36DA57004B0025 /* Products */,
 			);
 			sourceTree = "<group>";
