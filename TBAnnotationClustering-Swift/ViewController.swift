@@ -60,25 +60,27 @@ class ViewController: UIViewController, MKMapViewDelegate {
 		}
 	}
 
-    func updateMapViewAnnotations(annotations: [MKAnnotation]) {
-        let before = NSMutableSet(array: self.mapView.annotations)
-        let after = NSMutableSet(array: annotations)
-        
-        let toKeep = NSMutableSet(set: before)
-        toKeep.intersectsSet(after as Set<NSObject>)
-        
-        let toAdd = NSMutableSet(set: after)
-        toAdd.minusSet(toKeep as Set<NSObject>)
-        
-        let toRemove = NSMutableSet(set: before)
-        toRemove.minusSet(after as Set<NSObject>)
-        
-        NSOperationQueue.mainQueue().addOperationWithBlock() {
-            self.mapView.addAnnotations(toAdd.allObjects as! [MKAnnotation])
-            self.mapView.removeAnnotations(toRemove.allObjects as! [MKAnnotation])
-        }
-    }
-    
+	func updateMapViewAnnotations(annotations: [MKAnnotation]) {
+		let before = NSMutableSet(array: self.mapView.annotations)
+		let after = NSMutableSet(array: annotations)
+		
+		if before.count != after.count {
+			let toKeep = NSMutableSet(set: before)
+			toKeep.intersectsSet(after as Set<NSObject>)
+			
+			let toAdd = NSMutableSet(set: after)
+			toAdd.minusSet(toKeep as Set<NSObject>)
+			
+			let toRemove = NSMutableSet(set: before)
+			toRemove.minusSet(after as Set<NSObject>)
+			
+			NSOperationQueue.mainQueue().addOperationWithBlock() {
+				self.mapView.addAnnotations(toAdd.allObjects as! [MKAnnotation])
+				self.mapView.removeAnnotations(toRemove.allObjects as! [MKAnnotation])
+			}
+		}
+	}
+	
     func addBounceAnimationToView(view:UIView?) {
         let bounceAnimation = CAKeyframeAnimation(keyPath: "transform.scale")
         
