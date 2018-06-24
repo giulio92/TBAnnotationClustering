@@ -11,14 +11,14 @@ import Foundation
 class TBHotelCSVTreeBuilder {
     
     func buildTree(dataFileName:String, worldBounds:TBBoundingBox) -> TBQuadTreeNode {
-        let data = getFileContent(dataFileName)
-        let lines = data.componentsSeparatedByString("\n")
+        let data = getFileContent(fileName: dataFileName)
+        let lines = data.components(separatedBy: "\n") 
         
         var dataArray = [TBQuadTreeNodeData]()
         
         for line in lines {
             if line != "" {
-                dataArray.append(dataFromLine(line))
+                dataArray.append(dataFromLine(line: line as NSString))
             }
         }
         
@@ -26,26 +26,25 @@ class TBHotelCSVTreeBuilder {
     }
     
     private func dataFromLine(line: NSString) -> TBQuadTreeNodeData {
-        let components = line.componentsSeparatedByString(",")
+        let components = line.components(separatedBy: ",")
         
-        let latitude = Double(components[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))!
-        let longitude = Double(components[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()))!
+        let latitude = Double(components[1].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+        let longitude = Double(components[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
         
-        let hotelName = components[2].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        let hotelPhoneNumber = components.last!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-        
+        let hotelName = components[2].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let hotelPhoneNumber = components.last!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         let hotelInfo = TBHotelInfo(hotelName: hotelName, hotelPhoneNumber: hotelPhoneNumber)
         
-        return TBQuadTreeNodeData(x: latitude, y: longitude, data: hotelInfo)
+        return TBQuadTreeNodeData(x: latitude!, y: longitude!, data: hotelInfo)
     }
     
     private func getFileContent(fileName:String) -> String {
-        let bundle = NSBundle.mainBundle()
-        let path = bundle.pathForResource(fileName, ofType: "csv")!
+        let bundle = Bundle.main
+        let path = bundle.path(forResource: fileName, ofType: "csv")!
         var data = ""
         
         do {
-            data = try String(contentsOfFile: path, encoding: NSUTF8StringEncoding)
+            data = try String(contentsOfFile: path, encoding: String.Encoding.utf8)
         } catch {}
         
         return data

@@ -20,11 +20,11 @@ class TBCoordinateQuadTree : NSObject {
     }
     
     func buildTree(dataFileName:String, worldBounds:TBBoundingBox) {
-        root = hotelTreeBuilder.buildTree(dataFileName, worldBounds: worldBounds)
+        root = hotelTreeBuilder.buildTree(dataFileName: dataFileName, worldBounds: worldBounds)
     }
     
     func clusteredAnnotationWithinMapRect(rect:MKMapRect, zoomScale:MKZoomScale) -> [TBClusterAnnotation] {
-        let tbCellSize = TBCellSizeForZoomScale(zoomScale)
+        let tbCellSize = TBCellSizeForZoomScale(zoomScale: zoomScale)
         let zoomScaleDouble = Double(zoomScale)
         let scaleFactor = zoomScaleDouble / tbCellSize
         
@@ -35,8 +35,10 @@ class TBCoordinateQuadTree : NSObject {
         
         var clusteredAnnotations = [TBClusterAnnotation]()
         
-        for var x:Double = minX; x <= maxX; x++ {
-            for var y:Double = minY; y <= maxY; y++ {
+        for x:Double in stride(from: minX, through: maxX, by: 1.0)
+        {
+            for y:Double in stride(from: minY, through: maxY, by: 1.0)
+            {
                 let mapRect = MKMapRectMake(x/scaleFactor, y/scaleFactor, 1.0/scaleFactor, 1.0/scaleFactor)
                 
                 var totalX = 0.0
@@ -44,7 +46,7 @@ class TBCoordinateQuadTree : NSObject {
                 
                 var names = [String]()
                 
-                root?.gatherDataInRange(getBoundingBox(mapRect), action: { (data) -> Void in
+                root?.gatherDataInRange(range: getBoundingBox(mapRect: mapRect), action: { (data) -> Void in
                     totalX += data.x
                     totalY += data.y
                     
@@ -95,7 +97,7 @@ class TBCoordinateQuadTree : NSObject {
     }
     
     func TBCellSizeForZoomScale(zoomScale:MKZoomScale) -> Double {
-        let zoomLevel = TBZoomScaleToZoomLevel(zoomScale);
+        let zoomLevel = TBZoomScaleToZoomLevel(scale: zoomScale);
         
         switch (zoomLevel) {
             case 13, 14, 15:

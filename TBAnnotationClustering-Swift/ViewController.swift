@@ -29,30 +29,30 @@ class ViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         
         tbCoordinateQuadTree = TBCoordinateQuadTree(builder: hotelTreeBuilder, mapView: mapView)
-        tbCoordinateQuadTree!.buildTree("USA-HotelMotel", worldBounds: world)
+        tbCoordinateQuadTree!.buildTree(dataFileName: "USA-HotelMotel", worldBounds: world)
     }
 	
 	@IBAction func changeMapStyle(sender: UISegmentedControl) {
 		switch sender.selectedSegmentIndex {
 		case 0:
-			mapView.mapType = .Standard
-			navigationController?.navigationBar.barStyle = .Default
+			mapView.mapType = .standard
+			navigationController?.navigationBar.barStyle = .default
 			mapStyleSelector.tintColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-			bottomToolbar.barStyle = .Default
+			bottomToolbar.barStyle = .default
 			break
 			
 		case 1:
-			mapView.mapType = .Hybrid
-			navigationController?.navigationBar.barStyle = .Black
-			mapStyleSelector.tintColor = .whiteColor()
-			bottomToolbar.barStyle = .Black
+			mapView.mapType = .hybrid
+            navigationController?.navigationBar.barStyle = .black
+            mapStyleSelector.tintColor = .white
+			bottomToolbar.barStyle = .black
 			break
 			
 		case 2:
-			mapView.mapType = .Satellite
-			navigationController?.navigationBar.barStyle = .Black
-			mapStyleSelector.tintColor = .whiteColor()
-			bottomToolbar.barStyle = .Black
+			mapView.mapType = .satellite
+			navigationController?.navigationBar.barStyle = .black
+			mapStyleSelector.tintColor = .white
+			bottomToolbar.barStyle = .black
 			break
 			
 		default:
@@ -66,15 +66,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
 		
 		if before.count != after.count {
 			let toKeep = NSMutableSet(set: before)
-			toKeep.intersectsSet(after as Set<NSObject>)
+            toKeep.intersects(after as Set<NSObject>)
 			
 			let toAdd = NSMutableSet(set: after)
-			toAdd.minusSet(toKeep as Set<NSObject>)
+            toAdd.minus(toKeep as Set<NSObject>)
 			
 			let toRemove = NSMutableSet(set: before)
-			toRemove.minusSet(after as Set<NSObject>)
+            toRemove.minus(after as Set<NSObject>)
 			
-			NSOperationQueue.mainQueue().addOperationWithBlock() {
+            OperationQueue.main.addOperation() {
 				self.mapView.addAnnotations(toAdd.allObjects as! [MKAnnotation])
 				self.mapView.removeAnnotations(toRemove.allObjects as! [MKAnnotation])
 			}
@@ -94,32 +94,32 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
         
         bounceAnimation.timingFunctions = timingFunctions
-        bounceAnimation.removedOnCompletion = false
+        bounceAnimation.isRemovedOnCompletion = false
         
-        view!.layer.addAnimation(bounceAnimation, forKey: "bounce")
+        view!.layer.add(bounceAnimation, forKey: "bounce")
     }
     
     // MARK: - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         for view in views {
-            addBounceAnimationToView(view)
+            addBounceAnimationToView(view: view)
         }
     }
     
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        NSOperationQueue().addOperationWithBlock() {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+           DispatchQueue.main.async {
             let zoomScale = Double(self.mapView.bounds.size.width) / self.mapView.visibleMapRect.size.width
-            let annotations = self.tbCoordinateQuadTree!.clusteredAnnotationWithinMapRect(mapView.visibleMapRect, zoomScale: MKZoomScale(zoomScale))
+            let annotations = self.tbCoordinateQuadTree!.clusteredAnnotationWithinMapRect(rect: mapView.visibleMapRect, zoomScale: MKZoomScale(zoomScale))
             
-            self.updateMapViewAnnotations(annotations)
+            self.updateMapViewAnnotations(annotations: annotations)
         }
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 		var view:TBClusterAnnotationView?
 		
-        if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(TBAnnotatioViewReuseID) as? TBClusterAnnotationView {
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: TBAnnotatioViewReuseID) as? TBClusterAnnotationView {
             view = dequeuedView
         } else {
             view = TBClusterAnnotationView(annotation: annotation, reuseIdentifier: TBAnnotatioViewReuseID)
@@ -128,7 +128,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         view?.canShowCallout = true
         
         if let annotation = annotation as? TBClusterAnnotation {
-            view?.setCount(annotation.count)
+            view?.setCount(count: annotation.count)
         }
         
         return view
