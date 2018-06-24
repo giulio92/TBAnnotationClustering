@@ -23,7 +23,7 @@ class TBQuadTreeNode {
         
         if let dataArr = dataArr {
             for data in dataArr {
-                insertData(data)
+               _ =  insertData(data: data)
             }
         }
     }
@@ -51,7 +51,7 @@ class TBQuadTreeNode {
     
     func insertData(data:TBQuadTreeNodeData) -> Bool {
         // Bail if our coordinate is not inside the boundingBox
-        if !boundingBox.containsData(data) {
+        if !boundingBox.containsData(data: data) {
             return false
         }
         
@@ -67,32 +67,32 @@ class TBQuadTreeNode {
         }
         
         // Traverse the tree
-        if northWest!.insertData(data) { return true }
-        if northEast!.insertData(data) { return true }
-        if southWest!.insertData(data) { return true }
-        if southEast!.insertData(data) { return true }
+        if northWest!.insertData(data: data) { return true }
+        if northEast!.insertData(data: data) { return true }
+        if southWest!.insertData(data: data) { return true }
+        if southEast!.insertData(data: data) { return true }
         
         return false
     }
     
     func gatherDataInRange(range: TBBoundingBox, action: (TBQuadTreeNodeData) -> Void) {
         // If range is not contained in the node's boundingBox then bail
-        if !boundingBox.intersectWith(range) {
+        if !boundingBox.intersectWith(other: range) {
             return
         }
         
         for point in points {
-            if range.containsData(point) {
+            if range.containsData(data: point) {
                 action(point)
             }
         }
         
         // If node isn't leaf traverse down the tree
         if !isLeaf {
-            northWest!.gatherDataInRange(range, action: action)
-            northEast!.gatherDataInRange(range, action: action)
-            southWest!.gatherDataInRange(range, action: action)
-            southEast!.gatherDataInRange(range, action: action)
+            northWest!.gatherDataInRange(range: range, action: action)
+            northEast!.gatherDataInRange(range: range, action: action)
+            southWest!.gatherDataInRange(range: range, action: action)
+            southEast!.gatherDataInRange(range: range, action: action)
         }
     }
     
@@ -100,10 +100,10 @@ class TBQuadTreeNode {
         action(self)
         
         if !isLeaf {
-            northWest!.traverse(action)
-            northEast!.traverse(action)
-            southWest!.traverse(action)
-            southEast!.traverse(action)
+            northWest!.traverse(action: action)
+            northEast!.traverse(action: action)
+            southWest!.traverse(action: action)
+            southEast!.traverse(action: action)
         }
     }
     

@@ -22,12 +22,12 @@ class TBClusterAnnotation: NSObject, MKAnnotation {
         
         super.init()
     }
-    
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         if let other = object as? TBClusterAnnotation {
             return coordinate.longitude == other.coordinate.longitude && coordinate.latitude == other.coordinate.latitude
         }
         
         return false
     }
+  
 }
